@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: API Agencia de viajes
+  description: Manejar base de datos de la agencia de viajes
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/viajes/v1/clientes
+
+tags:
+  - name: clientes
+    description: Maneja toda la informacion relacionada con los clientes
+
+paths:
+  /:
+    post:
+      tags:
+      - clientes
+      summary: Inserta la informacion de un cliente.
+      operationId: GetCustomers
+      parameters:
+      - $ref: '#/components/parameters/token'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyClientesPost'
+        required: true
+      responses:
+        200:
+          description: (OK) Cliente guardado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoClientesPost'
+        400:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequest'
+
+        401:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Unauthorized'
+        
+        404:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/NotFound'
+
+        500:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/ServerError'
+
+  /{idCliente}:
+    get:
+      tags:
+      - clientes
+      summary: Obtener un cliente por el id
+      operationId: GetClientById
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idCliente
+          in: path
+          description: Identificador del cliente a obtener
+          required: true
+          schema:
+            type: string
+      responses:
+        200: 
+          description: (OK) Se obtuvo la información del cliente correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoClientesGet'
+        400:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequest'
+
+        401:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Unauthorized'
+        
+        404:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/NotFound'
+
+        500:
+          description: (ERROR) Ops! algo ocurrió
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/ServerError'
+
+
+components:
+  responses:
+    Unauthorized:
+      description: (Unauthorized) no tiene autorizacion para llamar al servicio.
+    NotFound: 
+      description: (Not Found) no se encuentra la información solicitada.
+    BadRequest:
+      description: (BadRequest) los datos enviados son incorrectos o hay campos obligatorios
+    ServerError:
+      description: (ServerError) Error en el servidor.
+
+  parameters:
+    token: 
+      name: "Token"
+      in: header
+      description: Token Authenticate
+      required: true  
+      schema:
+          type: string
+          example: b292bed18ac34a26bdc021ace9033b19  
+
+  schemas:
+    BodyClientesPost:
+      type: object
+      properties:
+        primer_nombre: 
+          type: string
+          description: primer nombre
+        segundo_nombre:
+          type: string
+          description: segundo nombre
+        correo:
+          type: string
+          description: correo
+    ExitoClientesPost:
+      type: object
+      properties:
+        respuesta:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la llamada al servicio fue exitosa
+        idCliente:
+          type: integer
+          enum: [222]
+          description: Id del Cliente
+    ExitoClientesGet:
+      type: object
+      properties:
+        primer_nombre: 
+          type: string
+          description: primer nombre
+        segundo_nombre:
+          type: string
+          description: segundo nombre
+        correo:
+          type: string
+          description: correo
+
+    
