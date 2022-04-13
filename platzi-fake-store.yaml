@@ -105,7 +105,7 @@ paths:
     get:
       tags:
         - categories
-      summary: categories list
+      summary: get all categories 
       operationId: getCategories
       parameters:
         - $ref: '#/components/parameters/token'
@@ -113,6 +113,107 @@ paths:
         200: 
           description: (OK) categories List
             
+  /categories/{idCategories}:
+    get:
+      tags:
+        - categories
+      summary: get a single category
+      operationId: getCategoryById
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idCategory
+          in: path
+          description: Identifier of category
+          required: true
+          schema:
+            type: string
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyCategoryGet'
+      responses:
+        200:
+          description: (OK)
+
+  /categories/:
+    post:
+      tags:
+        - categories
+      summary: Create a category
+      operationId: createCategory
+      parameters:
+         - $ref: '#/components/parameters/token'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyCategoryPost'
+      responses:
+        200:
+          description: (OK)
+
+  /categories/{idCategory}:
+    put:
+      tags:
+        - categories
+      summary: Update a category
+      operationId: updateCategoryById
+      parameters:
+        - $ref: '#/components/parameters/token'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                  description: Change name
+                  example: Change name
+      responses:
+        200:
+          description: (OK)
+
+  /categories/{idCategoryDelete}:
+    delete:
+      tags: 
+        - categories
+      summary: Delete a category
+      operationId: deleteCategory
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idCategory
+          in: path
+          description: Identifier of category
+          required: true
+          schema:
+            type: number
+            example: 1 
+      responses: 
+        200:
+          description: (OK)
+
+  /categories/{idCategory}/products:
+    get: 
+      tags:
+        - categories
+      summary: get all products by category
+      operationId: getProductsByCategory
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idCategory
+          in: path
+          description: Identifier of category
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: (OK)
+
   /users:
     get: 
       tags:
@@ -191,3 +292,29 @@ components:
           type: number
           description: Price the product
           example: 100
+    BodyCategoryGet:
+      type: object
+      properties:
+        id: 
+          type: number
+          description: The id of the category
+          example: 1
+        name:
+          type: string
+          description: Name of the product
+          example: Clothes
+        image: 
+          type: string
+          description: The string with URL to a image
+          example: https://placeimg.com/640/480/any
+    BodyCategoryPost:
+      type: object
+      properties:
+        name:
+          type: string
+          description: category nameº
+          example: New category
+        image:
+          type: string
+          description: category image
+          example: https://placeimg.com/640/480/any
