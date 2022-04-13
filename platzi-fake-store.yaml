@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: API Fake store By Platzi 
-  description: Maneja productos, categorías y usuarios falsos
+  description: Products manage - search by id, create, update any delete
   version: v1
 
 servers:
@@ -9,41 +9,185 @@ servers:
 
 tags:
   - name: products
-    description: Información de los productos de la tienda
+    description: Information about products
   - name: categories
-    description: Información de las categorías de los productos
+    description: Information about categories
   - name: users
-    description: Información de los usuarios
+    description: Information about users
 
 paths:
   /products:
     get:
       tags:
         - products
-      summary: Lista de productos con sus precios
+      summary: List of all products
       operationId: getProducts
+      parameters:
+        - $ref: '#/components/parameters/token'
       responses:
         200:
-          description: (OK) Lista de productos
+          description: (OK) Products list
+  
+  /products/{idProduct}:
+    get:
+      tags:
+        - products
+      summary: Get single product
+      operationId: getProductsById
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - $ref: '#/components/parameters/idProduct'
+      responses:
+        200:
+          description: (OK) Product exists
+
+  /products/:
+    post:
+      tags:
+        - products
+      summary: Create a new product
+      operationId: createProduct
+      parameters:
+       - $ref: '#/components/parameters/token'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyProductPost'
+      responses:
+        201:
+          description: (OK) Product created
+
+  /products/{idProductUpdate}:
+    put: 
+      tags:
+        - products
+      summary: Update product by Id
+      operationId: updateProduct
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idProductUpdate
+          in: path
+          description: Identifier of product
+          required: true
+          schema:
+            type: string
+            example: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyPrductUpdate'
+      responses: 
+        200:
+          description: (OK)
+
+  /products/{idProductDelete}:
+    delete: 
+      tags:
+        - products
+      summary: Delete product by Id
+      operationId: deleteProduct
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idProductDelete
+          in: path
+          description: Identifier of Product
+          required: true
+          schema:
+            type: string
+            example: 2
+      responses: 
+        200:
+          description: (OK)
 
   /categories:
     get:
       tags:
         - categories
-      summary: Lista de categorias
+      summary: categories list
       operationId: getCategories
+      parameters:
+        - $ref: '#/components/parameters/token'
       responses:
         200: 
-          description: (OK) Lista de categorias
+          description: (OK) categories List
             
   /users:
     get: 
       tags:
        - users  
-      summary: Lista de usuarios
+      summary: Users List
       operationId: getUsers
+      parameters:
+        - $ref: '#/components/parameters/token'
       responses:
         200:
-          description: (OK) Lista de usuarios
+          description: (OK) Users List
 
+components:
+  responses:
+    Unauthorized:
+      description: (Unauthorized) 
+    NotFound: 
+      description: (Not Found) 
+    BadRequest:
+      description: (BadRequest) 
+    ServerError:
+      description: (ServerError)
+  
+  parameters:    
+    token:
+      name: Token
+      in: header
+      description: Token Authenticate
+      required: true
+      schema:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AbWFpbC5jb20iLCJzdWIiOjEsImlhdCI6MTY0Nzg3NTY5MywiZXhwIjoxNjQ3ODc5MjkzfQ.yrPEqd3YEgmxwEXq3SFy33bhV2jcIKc8BMGZfwuWyHM
+    idProduct:
+      name: id product
+      in: path
+      description: Product Id
+      required: true
+      schema:
+        type: number
+        example: 1
 
+  schemas:
+    BodyProductPost:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Product title
+          example: New Product
+        price:  
+          type: number
+          description: Price the product
+          example: 1200
+        description:
+          type: string
+          description: Description the product
+          example: "A description"
+        categoryId:
+          type: number
+          description: Object of category
+          example: 1
+        images:
+          type: array
+          description: List of images like URLs
+          items:
+            type: string
+          example: ["https://placeimg.com/640/480/any", "url 2"]
+    BodyPrductUpdate:
+      type: object
+      properties:
+        title: 
+          type: string
+          description: Product title
+          example: Change title
+        price: 
+          type: number
+          description: Price the product
+          example: 100
