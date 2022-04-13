@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: API Fake store By Platzi 
+  description: Maneja productos, categorías y usuarios falsos
+  version: v1
+
+servers:
+  - url: https://api.escuelajs.co/api/v1
+
+tags:
+  - name: products
+    description: Información de los productos de la tienda
+  - name: categories
+    description: Información de las categorías de los productos
+  - name: users
+    description: Información de los usuarios
+
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Lista de productos con sus precios
+      operationId: getProducts
+      responses:
+        200:
+          description: (OK) Lista de productos
+
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: Lista de categorias
+      operationId: getCategories
+      responses:
+        200: 
+          description: (OK) Lista de categorias
+            
+  /users:
+    get: 
+      tags:
+       - users  
+      summary: Lista de usuarios
+      operationId: getUsers
+      responses:
+        200:
+          description: (OK) Lista de usuarios
+
+
