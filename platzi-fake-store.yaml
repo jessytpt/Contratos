@@ -225,6 +225,86 @@ paths:
       responses:
         200:
           description: (OK) Users List
+  
+  /users/{idUser}:
+    get:
+      tags:
+        - users
+      summary: Get a singleg user
+      operationId: getUserById
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idUser
+          in: path
+          description: Identifier of User
+          required: true
+          schema: 
+            type: number
+            example: 1
+      responses:
+        200:
+          description: (OK)
+
+  /users/:
+    post:
+      tags:
+        - users
+      summary: Create a user
+      operationId: createUsers
+      parameters:
+        - $ref: '#/components/parameters/token'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyUserPost'
+      responses:
+        200:
+          description: (OK)    
+
+  /users/{idUserPut}:
+    put:
+      tags: 
+        - users
+      summary: Update a user    
+      operationId: updateUser
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: idUser
+          in: path
+          description: Identifier of User
+          required: true
+          schema:
+            type: number
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyUserPut'
+      responses:
+        200:
+          description: (OK)
+
+  /users/is-available:
+    post:
+      tags:
+        - users
+      summary: Verify if an email is alreafy registered in the API
+      operationId: emailIsAvalible
+      parameters:
+        - $ref: '#/components/parameters/token'
+        - name: email
+          in: path
+          description: email of user
+          required: true
+          schema:
+            type: string
+            example: "john@mail.com"
+      responses: 
+        200:
+          description: (OK)
+
 
 components:
   responses:
@@ -318,3 +398,54 @@ components:
           type: string
           description: category image
           example: https://placeimg.com/640/480/any
+    BodyUserGet:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the user
+          example: 1
+        name:
+          type: string
+          description: The name of the user
+          example: Jhon
+        role:
+          type: string
+          description: The role of the user is customer or admin
+          example: customer
+        email:
+          type: string
+          description: The email of the user
+          example: jhon@mail.com
+        password:
+          type: string
+          description: The password of the user
+          example: 123
+    BodyUserPost:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the user
+          example: Nicolas
+        email:
+          type: string
+          description: The email of the user
+          example: nico@gmail.com
+        password:
+          type: string
+          description: The password of the user
+          example: 123
+    BodyUserPut:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the user
+          example: Nicolas
+        email:
+          type: string
+          description: The email of the user
+          example: nico@gmail.com
+        
+
