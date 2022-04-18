@@ -26,8 +26,34 @@ paths:
         - $ref: '#/components/parameters/token'
       responses:
         200:
-          description: (OK) Products list
-  
+          description: (OK) All Products list
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
+
   /products/{idProduct}:
     get:
       tags:
@@ -40,6 +66,36 @@ paths:
       responses:
         200:
           description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProductGet'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /products/:
     post:
@@ -57,6 +113,36 @@ paths:
       responses:
         201:
           description: (OK) Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProductPost'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /products/{idProductUpdate}:
     put: 
@@ -80,7 +166,37 @@ paths:
               $ref: '#/components/schemas/BodyPrductUpdate'
       responses: 
         200:
-          description: (OK)
+          description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /products/{idProductDelete}:
     delete: 
@@ -99,7 +215,38 @@ paths:
             example: 2
       responses: 
         200:
-          description: (OK)
+          description: (OK) Product delete
+          content:
+            application/json:
+              schema:
+                  type: boolean
+                  example: true
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /categories:
     get:
@@ -111,7 +258,33 @@ paths:
         - $ref: '#/components/parameters/token'
       responses:
         200: 
-          description: (OK) categories List
+          description: (OK) Categories List
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
             
   /categories/{idCategories}:
     get:
@@ -121,21 +294,46 @@ paths:
       operationId: getCategoryById
       parameters:
         - $ref: '#/components/parameters/token'
-        - name: idCategory
+        - name: idCategories
           in: path
           description: Identifier of category
           required: true
           schema:
             type: string
             example: 1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BodyCategoryGet'
       responses:
         200:
-          description: (OK)
+          description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /categories/:
     post:
@@ -152,9 +350,39 @@ paths:
               $ref: '#/components/schemas/BodyCategoryPost'
       responses:
         200:
-          description: (OK)
+          description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
-  /categories/{idCategory}:
+  /categories/{idCategoryUpdate}:
     put:
       tags:
         - categories
@@ -162,6 +390,13 @@ paths:
       operationId: updateCategoryById
       parameters:
         - $ref: '#/components/parameters/token'
+        - name: idCategoryUpdate
+          in: path
+          description: Identifier of category
+          required: true
+          schema:
+            type: string
+            example: 2
       requestBody:
         content:
           application/json:
@@ -174,8 +409,38 @@ paths:
                   example: Change name
       responses:
         200:
-          description: (OK)
-
+          description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
+  
   /categories/{idCategoryDelete}:
     delete:
       tags: 
@@ -184,7 +449,7 @@ paths:
       operationId: deleteCategory
       parameters:
         - $ref: '#/components/parameters/token'
-        - name: idCategory
+        - name: idCategoryDelete
           in: path
           description: Identifier of category
           required: true
@@ -193,7 +458,33 @@ paths:
             example: 1 
       responses: 
         200:
-          description: (OK)
+          description: (OK) Category delete
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /categories/{idCategory}/products:
     get: 
@@ -212,7 +503,33 @@ paths:
             example: 1
       responses:
         200:
-          description: (OK)
+          description: (OK) List Products by category
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /users:
     get: 
@@ -225,6 +542,32 @@ paths:
       responses:
         200:
           description: (OK) Users List
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
   
   /users/{idUser}:
     get:
@@ -243,7 +586,37 @@ paths:
             example: 1
       responses:
         200:
-          description: (OK)
+          description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
   /users/:
     post:
@@ -260,7 +633,37 @@ paths:
               $ref: '#/components/schemas/BodyUserPost'
       responses:
         200:
-          description: (OK)    
+          description: (OK) Product exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError" 
 
   /users/{idUserPut}:
     put:
@@ -270,7 +673,7 @@ paths:
       operationId: updateUser
       parameters:
         - $ref: '#/components/parameters/token'
-        - name: idUser
+        - name: idUserPut
           in: path
           description: Identifier of User
           required: true
@@ -284,7 +687,37 @@ paths:
               $ref: '#/components/schemas/BodyUserPut'
       responses:
         200:
-          description: (OK)
+          description: (OK) User exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError" 
 
   /users/is-available:
     post:
@@ -303,19 +736,50 @@ paths:
             example: "john@mail.com"
       responses: 
         200:
-          description: (OK)
+          description: (OK) Email avalible
+          content:
+            application/json:
+              schema:
+                  type: boolean
+                  example: true
+        400:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/BadRequest"
+        401:
+          description: (ERROR) Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/Unauthorized"
+        
+        404:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/responses/NotFound"
+        
+        500:
+          description: Ups! Something is wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/ServerError"
 
 
 components:
   responses:
     Unauthorized:
-      description: (Unauthorized) 
+      description: (Unauthorized) You are not authorized to call service.
     NotFound: 
-      description: (Not Found) 
+      description: (Not Found) The requested information is not found.
     BadRequest:
-      description: (BadRequest) 
+      description: (BadRequest) The data sent is incorrect or there are mandatory fields.
     ServerError:
-      description: (ServerError)
+      description: (ServerError) Server failed.
   
   parameters:    
     token:
@@ -327,13 +791,13 @@ components:
         type: string
         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AbWFpbC5jb20iLCJzdWIiOjEsImlhdCI6MTY0Nzg3NTY5MywiZXhwIjoxNjQ3ODc5MjkzfQ.yrPEqd3YEgmxwEXq3SFy33bhV2jcIKc8BMGZfwuWyHM
     idProduct:
-      name: id product
+      name: idProduct
       in: path
       description: Product Id
       required: true
       schema:
         type: number
-        example: 1
+        example: 5
 
   schemas:
     BodyProductPost:
@@ -447,5 +911,174 @@ components:
           type: string
           description: The email of the user
           example: nico@gmail.com
-        
-
+    SuccessProductGet:
+      type: object
+      properties:
+        id:
+          type: number
+          description: product id
+          example: 5
+        title:
+          type: string
+          description: product title
+          example: "Awesome Fresh Shoes"
+        price:
+          type: number
+          description: product price
+          example: 253
+        description:
+          type: string
+          description: product description
+          example: "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles"
+        category:
+          type: object
+          description: category informacionº
+          properties:
+            id:
+              type: number
+              description: category id
+              example: 4
+            name:
+              type: string
+              description: category name
+              example: "Shoes"
+            image:
+              type: string
+              description: category image
+              example: "https://api.lorem.space/image/shoes?w=640&h=480&r=8789"
+        images:
+          type: array
+          description: List of images like URLs
+          items:
+            type: string
+          example:  [ "https://api.lorem.space/image/shoes?w=640&h=480&r=5516",
+                      "https://api.lorem.space/image/shoes?w=640&h=480&r=7867",
+                       "https://api.lorem.space/image/shoes?w=640&h=480&r=7254" ]
+    SuccessProductPost:
+      type: object
+      properties:
+        title:
+          type: string
+          description: product title
+          example: "New Product"
+        price:
+          type: number
+          description: product price
+          example: 253
+        description:
+          type: string
+          description: product description
+          example: "A description"
+        images:
+          type: array
+          description: List of images like URLs
+          items:
+            type: string
+          example:  [ "https://api.lorem.space/image/shoes?w=640&h=480&r=5516",
+                      "https://api.lorem.space/image/shoes?w=640&h=480&r=7867",
+                       "https://api.lorem.space/image/shoes?w=640&h=480&r=7254" ]
+        category:
+          type: object
+          description: category informacionº
+          properties:
+            id:
+              type: number
+              description: category id
+              example: 4
+            name:
+              type: string
+              description: category name
+              example: "Category name"
+            keyLoremSpace:
+              type: string
+              description: category name
+              example: "fashion"
+            image:
+              type: string
+              description: category image
+              example: "https://api.lorem.space/image/shoes?w=640&h=480&r=8789"
+        id:
+          type: number
+          description: product id
+          example: 202
+    Product:
+      type: object
+      properties:
+        id:
+          type: number
+          description: product id
+          example: 5
+        title:
+          type: string
+          description: product title
+          example: "Awesome Fresh Shoes"
+        price:
+          type: number
+          description: product price
+          example: 253
+        description:
+          type: string
+          description: product description
+          example: "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles"
+        category:
+          type: object
+          description: category informacionº
+          properties:
+            id:
+              type: number
+              description: category id
+              example: 4
+            name:
+              type: string
+              description: category name
+              example: "Shoes"
+            image:
+              type: string
+              description: category image
+              example: "https://api.lorem.space/image/shoes?w=640&h=480&r=8789"
+        images:
+          type: array
+          description: List of images like URLs
+          items:
+            type: string
+          example:  [ "https://api.lorem.space/image/shoes?w=640&h=480&r=5516",
+                      "https://api.lorem.space/image/shoes?w=640&h=480&r=7867",
+                       "https://api.lorem.space/image/shoes?w=640&h=480&r=7254" ]
+    Category:
+      type: object
+      properties:
+        id:
+          type: number
+          description: category id
+          example: 5
+        name:
+          type: string
+          description: product title
+          example: "Category name"
+        image:
+          type: string
+          description: url image
+          example: "https://placeimg.com/640/480/any"
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the user
+          example: 1
+        name:
+          type: string
+          description: The name of the user
+          example: "User name"
+        role:
+          type: string
+          description: The role of the user is customer or admin
+          example: "User role"
+        email:
+          type: string
+          description: The email of the user
+          example: "user@mail.com"
+        password:
+          type: string
+          description: The password of the user
+          example: 123
